@@ -10,7 +10,9 @@ app.use(cors())
 
 // получить список всех  блюд
 app.get('/dishes', async (req, res) => {
-    const dishes = await prisma.dish.findMany({})
+    const dishes = await prisma.dish.findMany({
+        include: { category: true}
+    })
     res.json(dishes)
 })
 
@@ -26,7 +28,7 @@ app.get('/dish/:id', async (req, res) => {
 // получить список всех категорий
 app.get('/categories', async (req, res) => {
     const categories = await prisma.category.findMany({
-        include: { dish: true}
+        // include: { dish: true}
     })
     res.json(categories)
 })
